@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Login Here{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <p>You've already logged in!</p>
+    </br>
+    <a class='btn btn-danger' href='/logout' role='button'>Logout</a>
+
+{% endblock content %}
+
+{% block not_logged  %}
+    <p>You must first be logged in an account to use the manager!</p>
+    </br>
+    <form method='POST' class='form-group'>
+        {% csrf_token %}
+        {{ form|crispy }}
+        
+        <p>Don't have an account? </br><a class='btn btn-outline-primary' href='/register'>Create One</a></p>
+        <button type='submit' class='btn btn-success'>LOGIN</button>
+
+    </form>
+
+{% endblock not_logged  %}

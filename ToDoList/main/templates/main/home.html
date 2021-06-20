@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+
+    Home
+
+{% endblock %}
+
+{% block content %}
+    <div class='home-welcome'>
+        <h2>Welcome, {{ user.get_username }}</h2>
+    </div>
+
+    <div class='home-lists'>
+        <p> Your have a total of {{ user.to_do_list.all.count }} list(s) saved. </p>
+        <ul>
+            {% for list in user.to_do_list.all %}
+            <li><a href='/{{ list.id }}'> {{ list.name }}</a> ({{ list.item_set.all.count }} items) </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <sub>Date joined: {{ user.date_joined }}</br> Last login: {{ user.last_login }}</sub>
+
+    <div class='home-logout'>
+
+    </div>
+
+{% endblock %}
+
