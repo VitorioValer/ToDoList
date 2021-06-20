@@ -10,8 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
+
+from dotenv import load_dotenv
+
+load_dotenv('env_variables.env')  # Loads local variables
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 's0fng9%!hzs))=s+sjmt+jj-@xw+zi$bhyohn@6atuc-^8h7k&'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')  # gets secret key from env viriables
+
+if not SECRET_KEY:
+	error_message = 'UNABLE TO LOCATE DJANGO SECRET KEY\nMake sure your key \
+        is stored in the env_variables.env file'
+	
+	raise ValueError(error_message)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
